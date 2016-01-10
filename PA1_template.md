@@ -81,6 +81,7 @@ with(stepIntervals, {
 
 ![](PA1_template_files/figure-html/unnamed-chunk-3-1.png)\
 
+image: ![](Time_Series_Plot.png)
 
 #### The 5-minute interval, that contains the maximum number of steps, on average across all days was also calculated.That is interval 835 with the average steps of 206.17, as can be also observed in the above time-series plot. 
 
@@ -99,7 +100,7 @@ imputData <- group_by(mainData, interval) %>%
 
 #### Histograms of the averaged numbers of steps were generated to compare the impact of imputting the missing values:
 
-image: ![](C:\Users\noname\Documents\Project Pictures\Histogram2.png)
+image: ![](Histogram2.png)
 
 #### It can be observed that the majority of the missing values were replaced with the 0s corresponding to the average of the corresponding 5-min intervals. This is expected since the mean of the dataset is 0.
 
@@ -147,6 +148,19 @@ print(summary(mainData$steps))
 ##    0.00    0.00    0.00   37.38   12.00  806.00    2304
 ```
 
+
+#### Summary for IMPUTTED dataset:
+#### Min. 1st Qu.  **Median**    **Mean** 3rd Qu.    Max.
+<pre>
+0.00 0.00   0.00   37.33   27.00   806.00  
+</pre>
+#### Summary for INITIAL dataset:
+#### Min. 1st Qu.  **Median**    **Mean** 3rd Qu.    Max.   NA's
+<pre>
+0.00 0.00   0.00   37.38   12.00   806.00  2304  
+</pre>
+
+
 #### It can be observed that the difference between the mean and median of the two dataset is minimal, but the 3rd quantiles are different.
 
 ## Are there differences in activity patterns between weekdays and weekends?
@@ -171,5 +185,7 @@ xyplot(avgSteps ~ interval | daytype, data = stepsImput, type = "l", layout = c(
 
 ![](PA1_template_files/figure-html/unnamed-chunk-6-1.png)\
 
+
+image: ![](Time_Serie_Plot2.png)
 
 #### The time series plots indicate that more activity during the weekend. The maximum number of steps occurs around the same 5-min interval (800), both during the weekend and week, with a bit higher maximum during the week.
