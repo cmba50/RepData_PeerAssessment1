@@ -47,6 +47,8 @@ qplot(mainData$steps, geom="histogram",
 
 ![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)\
 
+image: ![](Histogram.png)
+
 
 #### As observed in the above histogram, the dataset is highly skewed towards 0 daily steps.
 #### The summary () function from dplyr was used to determine the mean and median of the total daily steps:

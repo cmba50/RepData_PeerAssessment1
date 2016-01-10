@@ -41,6 +41,8 @@ qplot(mainData$steps, geom="histogram",
       xlab = "Number of Steps", fill=I("red"), col=I("blue"), ylim = c(0, 16000))
 ```
 
+image: ![](Histogram.png)
+
 
 #### As observed in the above histogram, the dataset is highly skewed towards 0 daily steps.
 #### The summary () function from dplyr was used to determine the mean and median of the total daily steps:
