@@ -1,15 +1,18 @@
----
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
----
+# Reproducible Research: Peer Assessment 1
 
 
 ## Loading and preprocessing the data
 #### The part of this assignment includes tasks such as downloading, unzipping and reading the dataset into a dataframe. I chose to eliminate the missing values (marked as NA) from the beginning as preparation for data processing. The code used for loading and the preprocessing is included below:
-```{r, echo=TRUE, message =FALSE}
+
+```r
 library(dplyr)
+```
+
+```
+## Warning: package 'dplyr' was built under R version 3.2.3
+```
+
+```r
 library(ggplot2)
 filename <- "repdata_data_activity.zip"
 
@@ -33,13 +36,16 @@ mainData$date <- as.Date(mainData$date, "%Y-%m-%d")
 #### As a first step in the exploratory analysis a histogram of daily steps was generated to understand the distribution of data. 
 
 #### The code and the plot are presented below:
-```{r, echo=TRUE}
+
+```r
 qplot(mainData$steps, geom="histogram",
       binwidth = 10,
       main = "Total Number of Steps Taken Each Day",
       ylab = "Count of Occurences in Dataset",
       xlab = "Number of Steps", fill=I("red"), col=I("blue"), ylim = c(0, 16000))
 ```
+
+![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)\
 
 
 #### As observed in the above histogram, the dataset is highly skewed towards 0 daily steps.
@@ -57,7 +63,8 @@ qplot(mainData$steps, geom="histogram",
 #### Averages for each interval were considered across all days.
 
 #### The code and the plot used are included below:
-```{r, echo=TRUE}
+
+```r
 ##4.Time series plot of the average number of steps taken per 5-minute interval
 stepIntervals <- group_by(mainData, interval) %>%
               summarize(avgSteps = mean(steps))
@@ -70,6 +77,8 @@ with(stepIntervals, {
 })
 ```
 
+![](PA1_template_files/figure-html/unnamed-chunk-3-1.png)\
+
 
 #### The 5-minute interval, that contains the maximum number of steps, on average across all days was also calculated.That is interval 835 with the average steps of 206.17, as can be also observed in the above time-series plot. 
 
@@ -80,10 +89,10 @@ with(stepIntervals, {
 
 #### The missing values have been replaced in order to test the above hypothesis. The mean of the corresponding 5-min interval was used as the replacement values:
 
-```{r, echo=TRUE}
+
+```r
 imputData <- group_by(mainData, interval) %>%
           mutate(steps = replace(steps, is.na(steps), mean(steps, na.rm = TRUE)))
-
 ```
 
 #### Histograms of the averaged numbers of steps were generated to compare the impact of imputting the missing values:
@@ -93,7 +102,8 @@ image: ![](C:\Users\noname\Documents\Project Pictures\Histogram2.png)
 #### It can be observed that the majority of the missing values were replaced with the 0s corresponding to the average of the corresponding 5-min intervals. This is expected since the mean of the dataset is 0.
 
 #### The difference between imputted and initial dataset is also reflected below:
-```{r, echo=TRUE}
+
+```r
 mainData <- read.csv("activity.csv")
 imputData <- group_by(mainData, interval) %>%
           mutate(steps = replace(steps, is.na(steps), mean(steps, na.rm = TRUE)))
@@ -103,17 +113,44 @@ imputData$steps <- as.integer(imputData$steps)
 
 
 cat("Summary for IMPUTTED dataset:", "\n")  
-print(summary(imputData$steps))
+```
 
+```
+## Summary for IMPUTTED dataset:
+```
+
+```r
+print(summary(imputData$steps))
+```
+
+```
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    0.00    0.00    0.00   37.33   27.00  806.00
+```
+
+```r
 cat("Summary for INITIAL dataset:", "\n")  
+```
+
+```
+## Summary for INITIAL dataset:
+```
+
+```r
 print(summary(mainData$steps))
+```
+
+```
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+##    0.00    0.00    0.00   37.38   12.00  806.00    2304
 ```
 
 #### It can be observed that the difference between the mean and median of the two dataset is minimal, but the 3rd quantiles are different.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 #### Two factors have been created to determine the pattern differences between weekdays and weekend days:
-```{r, echo=TRUE}
+
+```r
 #Convert the date variable to R class (POSIXlt) and create factor
 imputData$date <- as.Date(imputData$date, "%Y-%m-%d")
 weekend <- c("Saturday", "Sunday")
@@ -129,6 +166,8 @@ stepsImput <- group_by(imputData, interval, daytype) %>%
 library(lattice)
 xyplot(avgSteps ~ interval | daytype, data = stepsImput, type = "l", layout = c(1, 2))
 ```
+
+![](PA1_template_files/figure-html/unnamed-chunk-6-1.png)\
 
 
 #### The time series plots indicate that more activity during the weekend. The maximum number of steps occurs around the same 5-min interval (800), both during the weekend and week, with a bit higher maximum during the week.
