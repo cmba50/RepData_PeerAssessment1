@@ -47,7 +47,7 @@ qplot(mainData$steps, geom="histogram",
 
 ![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)\
 
-image: ![](Histogram.png)
+ ![](Histogram.png)
 
 
 #### As observed in the above histogram, the dataset is highly skewed towards 0 daily steps.

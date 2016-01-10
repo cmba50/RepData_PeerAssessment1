@@ -41,7 +41,7 @@ qplot(mainData$steps, geom="histogram",
       xlab = "Number of Steps", fill=I("red"), col=I("blue"), ylim = c(0, 16000))
 ```
 
-image: ![](Histogram.png)
+ ![](Histogram.png)
 
 
 #### As observed in the above histogram, the dataset is highly skewed towards 0 daily steps.
@@ -72,7 +72,7 @@ with(stepIntervals, {
 })
 ```
 
-image: ![](Time_Series_Plot.png)
+ ![](Time_Series_Plot.png)
 
 #### The 5-minute interval, that contains the maximum number of steps, on average across all days was also calculated.That is interval 835 with the average steps of 206.17, as can be also observed in the above time-series plot. 
 
@@ -91,7 +91,7 @@ imputData <- group_by(mainData, interval) %>%
 
 #### Histograms of the averaged numbers of steps were generated to compare the impact of imputting the missing values:
 
-image: ![](Histogram2.png)
+ ![](Histogram2.png)
 
 #### It can be observed that the majority of the missing values were replaced with the 0s corresponding to the average of the corresponding 5-min intervals. This is expected since the mean of the dataset is 0.
 
@@ -147,6 +147,6 @@ xyplot(avgSteps ~ interval | daytype, data = stepsImput, type = "l", layout = c(
 ```
 
 
-image: ![](Time_Serie_Plot2.png)
+ ![](Time_Serie_Plot2.png)
 
 #### The time series plots indicate that more activity during the weekend. The maximum number of steps occurs around the same 5-min interval (800), both during the weekend and week, with a bit higher maximum during the week.
